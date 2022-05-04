@@ -1,0 +1,24 @@
+
+# Default server configuration
+#
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	root /var/www/full_stats/html;
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name _;
+
+	location /api {
+            proxy_pass http://127.0.0.1:3000;
+            # proxy_set_header Host $http_host;
+            # proxy_set_header Upgrade $http_upgrade;
+            # proxy_set_header Connection $connection_upgrade;
+            # proxy_buffering off;
+	}
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+}
